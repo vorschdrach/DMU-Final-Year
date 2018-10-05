@@ -134,10 +134,8 @@
 
             if (modulesNotFinnished == 0) {
                 document.getElementById("modulesNotDone").innerHTML = "You have completed all 15 credit modules";
-
             } else {
                 document.getElementById("modulesNotDone").innerHTML = "You have not completed:  " + modulesNotFinnished + " of the 15 credit modules";
-
             }
 
             document.getElementById("currentMark").innerHTML = "Current WEIGHTED mark " + ((secondTotal / 7 * 0.25) + (thirdTotal / 7 * 0.75)).toFixed(2) + "%";
