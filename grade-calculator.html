@@ -21,6 +21,16 @@
             border-radius: 10px;
         }
         
+        .instructions {
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+            margin: 10px;
+            border-radius: 10px;
+            padding-left: 10px;
+            margin-top: 14px;
+        }
+        
         .thirdYear {
             background-color: rgb(186, 163, 230);
             width: 500px;
@@ -33,6 +43,15 @@
             border-radius: 10px;
         }
         
+        .results {
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+            margin: 10px;
+            border-radius: 10px;
+            padding-left: 10px;
+        }
+        
         .moduleName {
             padding-left: 1px;
             border-style: solid;
@@ -43,6 +62,7 @@
             margin: 5px;
             width: 200px;
             background-color: #44cc66;
+            margin-left: 20px;
         }
         
         .mark {
@@ -58,9 +78,10 @@
         }
         
         .heading {
-            width: 200px;
+            width: 190px;
             float: left;
             margin: 7px;
+            margin-left: 20px;
         }
         
         .myButton {
@@ -83,11 +104,13 @@
             secondTotal = 0;
 
             for (myIndex; myIndex < 8; myIndex++) {
-                currentValue = document.getElementById("mark" + myIndex.toString()).value;
+                currentValue = (document.getElementById("mark" + myIndex.toString()).value);
 
                 if (currentValue == "" || currentValue * 1 !== parseInt(currentValue) || parseInt(currentValue) < 0 || parseInt(currentValue) > 100) {
                     currentValue = "0";
                     document.getElementById("mark" + myIndex.toString()).value = "0";
+                } else {
+                    document.getElementById("mark" + myIndex.toString()).value = (parseInt(currentValue, 10)).toString(10);
                 }
 
                 myArray.push(currentValue);
@@ -117,6 +140,8 @@
                 if (currentValue == "" || currentValue * 1 !== parseInt(currentValue) || parseInt(currentValue) < 0 || parseInt(currentValue) > 100) {
                     currentValue = "0";
                     document.getElementById("mark" + myIndex.toString()).value = "0";
+                } else {
+                    document.getElementById("mark" + myIndex.toString()).value = (parseInt(currentValue, 10)).toString(10);
                 }
 
                 if (currentValue == "" || currentValue == "0") {
@@ -134,22 +159,18 @@
 
             if (modulesNotFinnished == 0) {
                 document.getElementById("modulesNotDone").innerHTML = "You have completed all 15 credit modules";
-            } else {
-                document.getElementById("modulesNotDone").innerHTML = "You have not completed:  " + modulesNotFinnished + " of the 15 credit modules";
-            }
-
-            document.getElementById("currentMark").innerHTML = "Current WEIGHTED mark " + ((secondTotal / 7 * 0.25) + (thirdTotal / 7 * 0.75)).toFixed(2) + "%";
-
-            if (modulesNotFinnished == 0) {
-                document.getElementById("first").innerHTML = "You have complete degree with FINAL mark of " + ((secondTotal / 7 * 0.25) + (thirdTotal / 7 * 0.75)).toFixed(2) + "%";
+                document.getElementById("currentMark").innerHTML = "";
+                document.getElementById("first").innerHTML = "Your FINAL mark is " + ((secondTotal / 7 * 0.25) + (thirdTotal / 7 * 0.75)).toFixed(2) + "%";
                 document.getElementById("twoone").innerHTML = "";
                 document.getElementById("twotwo").innerHTML = "";
                 document.getElementById("third").innerHTML = "";
             } else {
+                document.getElementById("modulesNotDone").innerHTML = "You have not completed:  " + modulesNotFinnished + " of the 15 credit modules";
+                document.getElementById("currentMark").innerHTML = "Current WEIGHTED mark " + ((secondTotal / 7 * 0.25) + (thirdTotal / 7 * 0.75)).toFixed(2) + "%";
                 document.getElementById("first").innerHTML = "You need " + (((2800 * 0.7) - secondTotal - (thirdTotal * 3)) / 3 / modulesNotFinnished).toFixed(2) + "%" + " AVERAGE in remaining " + modulesNotFinnished + " modules for a 1st degree";
                 document.getElementById("twoone").innerHTML = "You need " + (((2800 * 0.6) - secondTotal - (thirdTotal * 3)) / 3 / modulesNotFinnished).toFixed(2) + "%" + " AVERAGE in remaining " + modulesNotFinnished + " modules for a 2/1 degree";
                 document.getElementById("twotwo").innerHTML = "You need " + (((2800 * 0.5) - secondTotal - (thirdTotal * 3)) / 3 / modulesNotFinnished).toFixed(2) + "%" + " AVERAGE in remaining " + modulesNotFinnished + " modules for a 2/2 degree";
-                document.getElementById("third").innerHTML = "You need " + (((2800 * 0.4) - secondTotal - (thirdTotal * 3)) / 3 / modulesNotFinnished).toFixed(2) + "%" + " AVERAGE in remaining " + modulesNotFinnished + " modules for a 3rd/Pass degree";
+                document.getElementById("third").innerHTML = "You need " + (((2800 * 0.4) - secondTotal - (thirdTotal * 3)) / 3 / modulesNotFinnished).toFixed(2) + "%" + " AVERAGE in remaining " + modulesNotFinnished + " modules for a 3rd degree";
             }
         }
     </script>
@@ -159,7 +180,7 @@
     <div class="container">
         <div class="secondYear">
             <div class="heading"><label>Second Year Module Name</label></div>
-            <div class="heading" style="width:50px"><label>Mark</label></div>
+            <div class="heading" style="width:50px"><label>Mark%</label></div>
             <br>
             <br>
             <input class="moduleName" type="text" name="moduleName1" value="Multimedia"><input id="mark1" class="mark" type="text" value="92" name="secondYearGrade"><br>
@@ -171,14 +192,20 @@
             <input class="moduleName" type="text" name="moduleName6" value="Adv Programming"><input id="mark6" class="mark" type="text" value="84" name="secondYearGrade"><br>
             <input class="moduleName" type="text" name="moduleName7" value="System Design"><input id="mark7" class="mark" type="text" value="68" name="secondYearGrade"><br>
             <input class="moduleName" type="text" name="moduleName8" value="System Design" style="background-color : #cc4444"><input id="mark8" class="mark" type="text" value="68" name="secondYearGrade" style="background-color : #cc4444"><br>
-            <br>
-            <br>
-            <p id="secondResult"></p>
+
+            <div class="instructions">
+                <p>ALL Second Year Mark Boxes must be entered</p>
+                <p>Put your Lowest Mark in the RED entry</p>
+                <p>Split all modules into mulltiple 15 credit entrys</p>
+                <p>(so two lines for a module that's worth 30 credits etc)</p>
+                <br>
+                <p><b>NOTE-A minimum of 40% is REQUIRED in ALL modules to pass</b></p>
+            </div>
         </div>
 
         <div class="thirdYear">
             <div class="heading"><label>Third Year Module Name</label></div>
-            <div class="heading" style="width:50px"><label>Mark</label></div>
+            <div class="heading" style="width:50px"><label>Mark%</label></div>
             <br>
             <br>
             <input class="moduleName" type="text" name="moduleName1" value="Project"><input id="mark9" class="mark" type="text" value="0" name="secondYearGrade"><br>
@@ -189,17 +216,21 @@
             <input class="moduleName" type="text" name="moduleName5" value="Fuzzy Logic"><input id="mark13" class="mark" type="text" value="86" name="secondYearGrade"><br>
             <input class="moduleName" type="text" name="moduleName6" value="PHP Security"><input id="mark14" class="mark" type="text" value="74" name="secondYearGrade"><br>
             <input class="moduleName" type="text" name="moduleName7" value="Functional Prog"><input id="mark15" class="mark" type="text" value="68" name="secondYearGrade"><br>
-            <input class="moduleName" type="text" name="moduleName8" value="MongoDB" style="background-color : #cc4444"><input id="mark16" class="mark" type="text" value="60" name="secondYearGrade" style="background-color : #cc4444"><br>
+            <input class="moduleName" type="text" name="moduleName8" value="MongoDB" style="background-color : #cc4444"><input id="mark16" class="mark" type="text" value="60" name="secondYearGrade" style="background-color : #cc4444"><button class="myButton"
+                type="button" onclick="thirdYearMark()">Calculate Grades</button><br>
 
-            <p><button class="myButton" type="button" onclick="thirdYearMark()">Calculate Grades</button></p>
-            <p id="thirdResult"></p>
-            <p id="modulesNotDone"></p>
-            <p id="currentMark"></p>
-            <p id="first"></p>
-            <p id="twoone"></p>
-            <p id="twotwo"></p>
-            <p id="third"></p>
 
+
+            <div class="results">
+                <p id="secondResult"></p>
+                <p id="thirdResult"></p>
+                <p id="modulesNotDone"></p>
+                <p id="currentMark"></p>
+                <p id="first"></p>
+                <p id="twoone"></p>
+                <p id="twotwo"></p>
+                <p id="third"></p>
+            </div>
         </div>
 
     </div>
